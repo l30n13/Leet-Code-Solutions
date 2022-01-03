@@ -13,7 +13,7 @@ func reorderLogFiles(_ logs: [String]) -> [String] {
     sortedLogs = sortedLogs.sorted { $0.components(separatedBy: " ").count < $1.components(separatedBy: " ").count }
     sortedLogs = sortedLogs.sorted {
         ($0.components(separatedBy: " ").count == $1.components(separatedBy: " ").count) &&
-        String($0.components(separatedBy: " ")[0].last) < String($1.components(separatedBy: " ")[0].last)
+        Int(String(Array($0.components(separatedBy: " ")[0]).last)) < Int(String(Array($1.components(separatedBy: " ")[0]).last))
     }
     
     sortedLogs.append(contentsOf: digitLogs)
