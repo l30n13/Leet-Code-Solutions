@@ -1,41 +1,43 @@
 import UIKit
 
 func nearestValidPoint(_ x: Int, _ y: Int, _ points: [[Int]]) -> Int {
-    var resultPoint: [Int] = []
+    var validPointIndex: [Int] = []
     var result: [Int : Int] = [:]
     
-    points.forEach { i in
-        if i[0] == x || i[1] == y {
-            resultPoint.append(points.firstIndex(of: i) ?? -1)
+    for i in 0 ..< points.count {
+        if points[i][0] == x && points[i][1] == y {
+            return i
+        }
+        
+        if points[i][0] == x || points[i][1] == y {
+            validPointIndex.append(i)
         }
     }
     
-    if resultPoint.isEmpty {
+    if validPointIndex.isEmpty {
         return -1
     }
     
-    resultPoint.forEach { i in
+    validPointIndex.forEach { i in
         result[i] = abs(points[i][0] - x) + abs(points[i][1] - y)
     }
-    
-    var a = Set<Int>()
-    result.forEach { k,v in
-        a.insert(v)
-    }
-    
-    var newResult: [Int : Int] = [:]
-    a.forEach { i in
-        result.forEach { k,v in
-            print(v)
-            if i == v {
-                newResult[k] = v
-            }
+    var minDistance = Int.max
+    result.forEach {
+        if minDistance > $0.value {
+            minDistance = $0.value
         }
     }
     
-    print(newResult)
+    result = result.filter { $0.value == minDistance }
     
-    return resultPoint[0]
+    var minIndex = Int.max
+    result.forEach {
+        if minIndex > $0.key {
+            minIndex = $0.key
+        }
+    }
+    
+    return minIndex
 }
 
 
