@@ -13,11 +13,19 @@ func findDifferentBinaryString(_ nums: [String]) -> String {
             result = String(i, radix: 2)
         }
     }
-    print(numberArray)
+    
+    result = pad(string: result, toSize: nums[0].count)
     
     return result
 }
 
+func pad(string : String, toSize: Int) -> String {
+    var padded = string
+    for _ in 0..<(toSize - string.count) {
+        padded = "0" + padded
+    }
+    return padded
+}
 
 findDifferentBinaryString(["01","10"])
 findDifferentBinaryString(["00","01"])
